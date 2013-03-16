@@ -1,0 +1,41 @@
+alias ls='ls -p --sort=extension --color=auto'
+alias ll='ls -la'
+alias vmi='vim'
+alias vi='vim'
+alias v='vim'
+alias c='clear'
+alias gi='git'
+alias wget='wget -c'
+alias grep="grep --color=auto"
+alias cp='rsync --progress -h'                                
+alias rsync='rsync --progress -h'                                
+alias xlogout='xfce4-session-logout'
+alias films='vim Docs/Memo/films.txt'
+alias mplayer='mplayer -stop-xscreensaver'
+alias :q='exit'
+alias mount='mount | column -t'
+alias dualscreen='xrandr --output DVI-1 --mode 1440x900 --rate 75.0 && xrandr --output DVI-0 --pos 0x0 --mode 1440x900 --rate 75.0 --left-of DVI-1 --mode 1440x900 --rate 75.0 && xrandr --output DVI-1 --mode 1440x900 --rate 75.0'
+alias cam='mplayer -tv driver=v4l2:device=/dev/video0 tv://'
+alias lastfiles='find /etc -type f -printf "%T@ %T+ %p\n" | sort -n'
+alias pyweb='python -m SimpleHTTPServer'
+alias pass=' pass'
+alias Mysql='mysql --defaults-file=/etc/mysql/debian.cnf'
+alias pgoogle='ping -c1 google.fr'
+alias sshHosts="nmap -p22 -oG - $(ip addr | awk '/inet .*global/ {print $2}' | tr '\n' ' ') | awk '/22\/open/ {print $2}' | uniq"
+# alias msshfs='/bin/bash ~/.scripts/msshfs.sh'
+
+# aptitude
+alias upgrade='sudo aptitude update && sudo aptitude upgrade'
+alias update='sudo aptitude update'
+alias install='sudo aptitude install'
+alias purge='sudo aptitude purge'
+alias search='sudo aptitude search'
+
+# navigate
+alias ..='cd ..'
+alias ..2='cd ../..'
+alias ..3='cd ../../..'
+
+# files
+alias src.list='sudo vim /etc/apt/sources.list'
+alias fstab='sudo vim /etc/fstab'
