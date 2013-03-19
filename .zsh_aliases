@@ -12,7 +12,7 @@ alias rsync='rsync --progress -h'
 alias xlogout='xfce4-session-logout'
 alias films='vim Docs/Memo/films.txt'
 alias mplayer='mplayer -stop-xscreensaver'
-alias :q='exit'
+alias x='exit'
 alias mount='mount | column -t'
 alias dualscreen='xrandr --output DVI-1 --mode 1440x900 --rate 75.0 && xrandr --output DVI-0 --pos 0x0 --mode 1440x900 --rate 75.0 --left-of DVI-1 --mode 1440x900 --rate 75.0 && xrandr --output DVI-1 --mode 1440x900 --rate 75.0'
 alias cam='mplayer -tv driver=v4l2:device=/dev/video0 tv://'
@@ -22,6 +22,9 @@ alias pass=' pass'
 alias Mysql='mysql --defaults-file=/etc/mysql/debian.cnf'
 alias pgoogle='ping -c1 google.fr'
 alias sshHosts="nmap -p22 -oG - $(ip addr | awk '/inet .*global/ {print $2}' | tr '\n' ' ') | awk '/22\/open/ {print $2}' | uniq"
+alias G="grep"
+alias T="tail"
+alias H="head"
 # alias msshfs='/bin/bash ~/.scripts/msshfs.sh'
 
 # aptitude
