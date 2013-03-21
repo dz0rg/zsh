@@ -120,17 +120,55 @@ myIp() {
 dump_db() {
 	local current_time=`date +%d_%m_%Y-%T`
 
-	echo "Backup of "$argv" database on `pwd`/"$argv"-$current_time.sql"
-	mysqldump --defaults-file=/etc/mysql/debian.cnf --add-drop-table --set-charset "$argv" > "$argv"-$current_time.sql
+	echo "Backup of "$argv[1]" database on `pwd`"$argv[1]"-$current_time.sql"
+	mysqldump --defaults-file=/etc/mysql/debian.cnf --databases --add-drop-table --set-charset "$argv[1]" > "$argv[1]"-$current_time.sql
 }
 
 restore_db() {
-	local db_name=`echo "$argv" | cut -d "-" -f1`
 
-	echo "Restore from `pwd`/"$argv" to "$db_name" database"
-	mysql --defaults-file=/etc/mysql/debian.cnf $db_name < "$argv"
+	local file="$argv[1]"
+
+	if [[ $file =~ ".*-(([0-9]{2})_){2}[0-9]{4}-([0-9]{2}:){2}..*" ]]; then                 # regex date
+			local db_name=${file%%-*}               # file="toto-12_23_2022-13:55:02.sql" => db_name=toto
+	else
+
+			if [[ ! -z "$argv[2]" ]]; then          # second parameter content db name ?
+					local db_name="$argv[2]"
+			else                                                            # ask to user
+					echo "Please specify the database destination: "
+					read db_name
+			fi
+
+	fi
+
+	local ext=${file##*.}
+
+	case "$ext" in
+			gz|zip) 
+					if [[ ${file#*.} =~ "(sql.)?tar.gz" ]]; then            # sql.tar.gz or tar.gz
+							extract="tar xzO"
+					else                                                    # .sql or .sql.gz
+							extract="zcat"
+					fi ;;
+			bz2) extract="bunzip2" ;;
+			tar) extract="tar -xO" ;;
+			*) ext="" ;;
+	esac
+
+	# check if the db exists and create this is not exists
+	if [[ `grep -q "CREATE DATABASE" $file` != 0 ]]; then
+			Mysql --exec="CREATE DATABASE IF NOT EXISTS $db_name CHARACTER SET utf8 COLLATE utf8_general_ci;"
+	fi
+
+	echo "Restore \"$file\" on \"$db_name\" database"
+
+	if [[ ! -z $ext ]]; then                # extract archive before restore dump
+			eval $extract < $file | Mysql $db_name
+	else
+			Mysql $db_name < $file          # simple sql file
+	fi
+
 }
-
 # }}}
 
 # show todo list
