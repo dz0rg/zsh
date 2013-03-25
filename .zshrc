@@ -109,22 +109,49 @@ pass () {
 }
 
 # show network informations
-myIp() {
+myIp () {
+
 	echo "--------------- Network Informations ---------------"
 	echo "eth0 IP:" `ip addr | awk '/inet .*global/ {print $2}'` " | HW:" `ip addr | awk '/link\/ether/ {print $2}'`
 	echo "IP Public: " `curl -s v4.ident.me`
 	echo "---------------------------------------------------"
 }
 
+# extract archives easily
+extract () {
+
+		if [ -f "$argv[1]" ] ; then
+		
+		case "$argv[1]" in
+			*.tar.bz2)   tar xjf "$argv[1]"        ;;
+			*.tar.gz)    tar xzf "$argv[1]"     ;;
+			*.bz2)       bunzip2 "$argv[1]"       ;;
+			*.rar)       unrar x "$argv[1]"     ;;
+			*.gz)        gunzip "$argv[1]"     ;;
+			*.tar)       tar xf "$argv[1]"        ;;
+			*.tbz2)      tar xjf "$argv[1]"      ;;
+			*.tgz)       tar xzf "$argv[1]"       ;;
+			*.zip)       unzip "$argv[1]"     ;;
+			*.Z)         uncompress "$argv[1]"  ;;
+			*.7z)        7z x "$argv[1]"    ;;
+			*)           echo "'"$argv[1]"' cannot be extracted via extract()" ;;
+			esac
+		else
+			echo "'"$argv[1]"' is not a valid file"
+		fi
+}
+
+
 # backup/restore mysql database without the root password
-dump_db() {
+dump_db () {
+
 	local current_time=`date +%d_%m_%Y-%T`
 
 	echo "Backup of "$argv[1]" database on `pwd`"$argv[1]"-$current_time.sql"
 	mysqldump --defaults-file=/etc/mysql/debian.cnf --databases --add-drop-table --set-charset "$argv[1]" > "$argv[1]"-$current_time.sql
 }
 
-restore_db() {
+restore_db () {
 
 	local file="$argv[1]"
 
