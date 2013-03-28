@@ -28,11 +28,12 @@ alias H="head"
 # alias msshfs='/bin/bash ~/.scripts/msshfs.sh'
 
 # aptitude
-alias upgrade='sudo aptitude update && sudo aptitude upgrade'
-alias update='sudo aptitude update'
-alias install='sudo aptitude install'
-alias purge='sudo aptitude purge'
-alias search='sudo aptitude search'
+alias aptitude='sudo aptitude'
+alias upgrade='aptitude update && sudo aptitude upgrade'
+alias update='aptitude update'
+alias install='aptitude install'
+alias purge='aptitude purge'
+alias search='aptitude search'
 
 # navigate
 alias ..='cd ..'
