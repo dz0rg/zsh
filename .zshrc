@@ -98,6 +98,11 @@ bindkey -M viins '^F' history-incremental-pattern-search-forward
 
 # {{{ Functions
 
+# open a file directly from terminal
+function o () {
+	xdg-open $argv[1]
+}
+
 # show a config file without comments
 showconfig () {
 	egrep -v "^$|^[[:space:]]*#" "$argv" |less
@@ -133,7 +138,7 @@ extract () {
 			*.tgz)       tar xzf "$argv[1]"       ;;
 			*.zip)       unzip "$argv[1]"     ;;
 			*.Z)         uncompress "$argv[1]"  ;;
-			*.7z)        7z x "$argv[1]"    ;;
+			*.7z)        7zr x "$argv[1]"    ;;
 			*)           echo "'"$argv[1]"' cannot be extracted via extract()" ;;
 			esac
 		else
@@ -197,6 +202,8 @@ restore_db () {
 
 }
 # }}}
+
+
 
 # show todo list
 tdl list

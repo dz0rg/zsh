@@ -7,12 +7,13 @@ alias c='clear'
 alias gi='git'
 alias wget='wget -c'
 alias grep="grep --color=auto"
+alias rgrep="rgrep --color=auto -n"
 alias cp='rsync --progress -h'                                
 alias rsync='rsync --progress -h'                                
 alias xlogout='xfce4-session-logout'
 alias films='vim Docs/Memo/films.txt'
 alias mplayer='mplayer -stop-xscreensaver'
-alias x='exit'
+alias q='exit'
 alias mount='mount | column -t'
 alias dualscreen='xrandr --output DVI-1 --mode 1440x900 --rate 75.0 && xrandr --output DVI-0 --pos 0x0 --mode 1440x900 --rate 75.0 --left-of DVI-1 --mode 1440x900 --rate 75.0 && xrandr --output DVI-1 --mode 1440x900 --rate 75.0'
 alias cam='mplayer -tv driver=v4l2:device=/dev/video0 tv://'
@@ -29,11 +30,14 @@ alias H="head"
 
 # aptitude
 alias aptitude='sudo aptitude'
-alias upgrade='aptitude update && sudo aptitude upgrade'
+alias upgrade='aptitude update && aptitude upgrade'
 alias update='aptitude update'
 alias install='aptitude install'
+alias reinstall='aptitude reinstall'
 alias purge='aptitude purge'
 alias search='aptitude search'
+alias show='aptitude show'
+alias clean='aptitude clean'
 
 # navigate
 alias ..='cd ..'
